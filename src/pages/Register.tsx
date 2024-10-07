@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styles/App.css';
+import '../styles/Register.css';
 
 const Register: React.FC = () => {
   // États pour les champs de formulaire
@@ -45,7 +45,7 @@ const Register: React.FC = () => {
     setPassword('');
 
     // Rediriger l'utilisateur vers la page de connexion
-    navigate('/login');
+    navigate('/movies');
   };
 
   return (

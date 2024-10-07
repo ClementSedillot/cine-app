@@ -1,0 +1,79 @@
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #e0e5ec; /* Couleur de fond principale */
+  }
+  
+  .register-form {
+    width: 350px;
+    padding: 30px;
+    background: #e0e5ec;
+    box-shadow: 8px 8px 16px #c5c8ce, -8px -8px 16px #ffffff; /* Effet de relief */
+    border-radius: 15px;
+  }
+  
+  h2 {
+    text-align: center;
+    margin: 1em;
+    color: #333;
+    text-shadow: 2px 2px 4px #ffffff;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background: #e0e5ec;
+    box-shadow: inset 8px 8px 16px #c5c8ce, inset -8px -8px 16px #ffffff; /* Effet de relief interne */
+    font-size: 16px;
+    color: #333;
+    outline: none;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .form-group input:focus {
+    box-shadow: inset 4px 4px 8px #c5c8ce, inset -4px -4px 8px #ffffff; /* Réduction de l'effet de relief */
+  }
+  
+  /* Style du bouton */
+  .register-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 25px;
+    background: #e0e5ec;
+    color: #333;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 18px;
+    transition: box-shadow 0.3s ease;
+    box-shadow: 8px 8px 16px #c5c8ce, -8px -8px 16px #ffffff; /* Effet de relief externe */
+  }
+  
+  .register-btn:hover {
+    box-shadow: inset 8px 8px 16px #c5c8ce, inset -8px -8px 16px #ffffff; /* Effet enfoncé lors du survol */
+  }
+  
+  .register-btn:active {
+    box-shadow: inset 8px 8px 16px #c5c8ce, inset -8px -8px 16px #ffffff; /* Effet enfoncé lors du clic */
+  }
+  
+  /* Effet de relief pour le champ ID en lecture seule */
+  input[disabled] {
+    background-color: #e0e5ec;
+    box-shadow: inset 8px 8px 16px #c5c8ce, inset -8px -8px 16px #ffffff;
+    color: #666;
+  }
