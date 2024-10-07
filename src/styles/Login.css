@@ -1,0 +1,79 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Arial', sans-serif;
+    background: #e0e5ec; /* Fond principal pour le style neumorphique */
+  }
+  
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .login-form {
+    width: 350px;
+    padding: 30px;
+    background: #e0e5ec;
+    box-shadow: 8px 8px 16px #c5c8ce, -8px -8px 16px #ffffff; /* Effet de relief */
+    border-radius: 15px;
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background: #e0e5ec;
+    box-shadow: inset 8px 8px 16px #c5c8ce, inset -8px -8px 16px #ffffff;
+    font-size: 16px;
+    color: #333;
+    outline: none;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .form-group input:focus {
+    box-shadow: inset 4px 4px 8px #c5c8ce, inset -4px -4px 8px #ffffff;
+  }
+  
+  .login-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 25px;
+    background: #61dafb;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 18px;
+    transition: box-shadow 0.3s ease;
+    box-shadow: 8px 8px 16px #c5c8ce, -8px -8px 16px #ffffff;
+  }
+  
+  .login-btn:hover {
+    box-shadow: inset 8px 8px 16px #c5c8ce, inset -8px -8px 16px #ffffff;
+  }
+  
+  .error-message {
+    color: red;
+    text-align: center;
+  }
+  
