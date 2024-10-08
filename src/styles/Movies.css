@@ -2,7 +2,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     text-align: center;
     background: #e0e5ec;
   }
@@ -24,4 +23,92 @@
   a:hover {
     color: #21a1f1;
   }
-  
+
+  /* Conteneur de la page des films */
+.movies-container {
+  padding: 20px;
+  background: #2A2A2A; /* Couleur de fond sombre */
+  color: #FFF;
+  min-height: 100vh; /* Assurer que le conteneur couvre toute la hauteur de l'écran */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Message de bienvenue */
+.welcome-message {
+  font-size: 36px;
+  color: #F2A622;
+  margin: 0;
+  margin-bottom: 30px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+/* Titre des films */
+h2 {
+  text-align: center;
+  font-size: 28px;
+
+  margin-bottom: 30px;
+}
+
+/* Grille de films */
+.movies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+/* Carte individuelle d'un film */
+.movie-card {
+  background: #333;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.2), 5px 5px 15px rgba(0, 0, 0, 0.7);
+  transition: transform 0.3s ease;
+}
+
+.movie-card:hover {
+  transform: translateY(-10px);
+}
+
+.movie-poster {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.movie-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.movie-overview {
+  font-size: 14px;
+  color: #BBB;
+  height: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.movie-release-date {
+  font-size: 14px;
+  color: #F2A622;
+  margin-top: 10px;
+}
+.movies-title{
+  color: #F2A622;
+}
+.logout-button {
+  background-color: #FF6347;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background-color: #FF4500;
+}

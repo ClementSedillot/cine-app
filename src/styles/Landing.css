@@ -1,0 +1,78 @@
+
+/* Configuration de la page */
+.App {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Prendre toute la hauteur de la fenêtre */
+    overflow: hidden;
+  }
+  
+  /* Conteneur de la vidéo pour le plein écran */
+  .youtube-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* Placer la vidéo en arrière-plan */
+    overflow: hidden;
+  }
+  
+  /* L'iframe YouTube en plein écran */
+  .youtube-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw; /* Utiliser toute la largeur de l'écran */
+    height: 100vh; /* Utiliser toute la hauteur de l'écran */
+    z-index: 0; /* S'assurer que la vidéo est en arrière-plan */
+    pointer-events: none; /* Désactiver les interactions avec la vidéo */
+  }
+  
+  /* Contenu de la page au-dessus de la vidéo */
+  .content {
+    position: relative;
+    z-index: 1; /* Placer le contenu au-dessus de la vidéo */
+    color: white;
+    text-align: center;
+  }
+  
+  h1 {
+    margin-top: 50vh; /* Espace entre le haut de la page et le texte */
+    font-size: 3em;
+  }
+  
+  /* Styles des boutons */
+  .buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .btn {
+    background-color: #61dafb;
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none;
+    font-weight: bold;
+    border: 2px solid transparent;
+    border-radius: 25px;
+    transition: 0.3s;
+  }
+  
+  .btn:hover {
+    background-color: #21a1f1;
+  }
+  
+  .btn-out {
+    background-color: transparent;
+    color: #61dafb;
+    border: 2px solid #61dafb;
+  }
+  
+  .btn-out:hover {
+    background-color: #61dafb;
+    color: white;
+  }
+  

@@ -38,8 +38,9 @@
 }
 
 h1 {
-  margin-top: 50vh; /* Espace entre le haut de la page et le texte */
+  margin-top: 50vh;
   font-size: 3em;
+  color: white;
 }
 
 /* Styles des boutons */
