@@ -4,6 +4,7 @@ import Register from '../pages/Register';
 import Login from '../pages/Login';
 import Movies from '../pages/Movies';
 import Landing from '../pages/Landing';
+import Profile from '../pages/Profil';
 
 const App: React.FC = () => {
   return (
@@ -13,6 +14,7 @@ const App: React.FC = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/movies" element={<Movies />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </Router>
   );

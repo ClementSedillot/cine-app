@@ -1,33 +1,6 @@
 .movies-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background: #e0e5ec;
-  }
-  
-  h1 {
-    font-size: 3em;
-    color: #333;
-  }
-  
-  p {
-    font-size: 1.5em;
-  }
-  
-  a {
-    color: #61dafb;
-    text-decoration: none;
-  }
-  
-  a:hover {
-    color: #21a1f1;
-  }
-
-  /* Conteneur de la page des films */
-.movies-container {
   padding: 20px;
-  background: #2A2A2A; /* Couleur de fond sombre */
+  background: #2A2A2A;
   color: #FFF;
   min-height: 100vh; /* Assurer que le conteneur couvre toute la hauteur de l'écran */
   display: flex;
@@ -35,31 +8,29 @@
   align-items: center;
 }
 
-/* Message de bienvenue */
 .welcome-message {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.logout-button {
+  margin-bottom: 30px;
+}
+
+.movies-title {
+  text-align: center;
   font-size: 36px;
   color: #F2A622;
-  margin: 0;
-  margin-bottom: 30px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-}
-
-/* Titre des films */
-h2 {
-  text-align: center;
-  font-size: 28px;
-
   margin-bottom: 30px;
 }
 
-/* Grille de films */
 .movies-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
+  width: 100%;
 }
 
-/* Carte individuelle d'un film */
 .movie-card {
   background: #333;
   border-radius: 10px;
@@ -67,6 +38,7 @@ h2 {
   text-align: center;
   box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.2), 5px 5px 15px rgba(0, 0, 0, 0.7);
   transition: transform 0.3s ease;
+  max-width: 20em;
 }
 
 .movie-card:hover {
@@ -83,32 +55,218 @@ h2 {
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 10px;
+  color: #ffffff
 }
 
-.movie-overview {
-  font-size: 14px;
-  color: #BBB;
-  height: 60px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.movie-release-date {
-  font-size: 14px;
-  color: #F2A622;
+/* Bouton sur les cartes de films */
+.movie-card .btn {
   margin-top: 10px;
 }
-.movies-title{
-  color: #F2A622;
-}
-.logout-button {
-  background-color: #FF6347;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
-.logout-button:hover {
-  background-color: #FF4500;
+.modal-content {
+  background: #333;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  color: #fff;
+  position: relative;
+  width: 40em;
+}
+
+.modal-content h2 {
+  color: #F2A622;
+  margin-bottom: 20px;
+}
+
+.modal-content p {
+  margin-bottom: 10px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 30px;
+  cursor: pointer;
+}
+.welcome-message{
+  margin: 2em;
+}
+.trailer-video {
+  width: 100%;
+  height: 400px;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.movies-page {
+  font-family: Arial, sans-serif;
+}
+
+.navbar {
+  background-color: #343a40;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  color: #fff;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar .btn {
+  margin-left: 10px;
+}
+
+.search-bar {
+  margin: 20px 0;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.movies-grid.small-grid .movie-card {
+  width: 30%; /* Plus grand pour moins de films */
+}
+
+.movies-grid.large-grid .movie-card {
+  width: 15%; /* Taille standard pour plus de films */
+}
+
+.movie-poster {
+  width: 100%;
+  height: auto;
+}
+
+.trailer-video {
+  width: 100%;
+  height: 400px;
+}
+
+.search-bar {
+  margin: 20px 0;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+.heart-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  margin: 5px;
+  color: #4caf50;
+  position: relative;
+}
+
+
+.heart-button.disabled {
+  cursor: not-allowed;
+  color: #a9a9a9; /* Couleur grise pour les favoris déjà ajoutés */
+}
+
+.heart-button:hover .heart-icon {
+  transform: scale(1.2);
+  transition: transform 0.2s;
+}
+
+.heart-icon {
+  font-size: 24px;
+}
+.heart-button .trash-icon {
+  display: none;
+  color: #ff4c4c;
+}
+
+.heart-icon.added {
+  color: #4caf50; /* Couleur verte pour indiquer que c'est déjà dans les favoris */
+}
+
+.heart-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  margin: 5px;
+  color: #ffffff;
+}
+
+.heart-button.in-favorites {
+  color: #4caf50; /* Vert pour indiquer que le film est déjà dans les favoris */
+}
+
+.heart-button:hover .heart-icon {
+  transform: scale(1.2);
+  transition: transform 0.2s;
+}
+
+.heart-icon {
+  font-size: 24px;
+}
+
+.heart-icon.remove {
+  color: #ff4c4c; /* Rouge pour l'icône de suppression */
+}
+.heart-button .heart-icon {
+  font-size: 24px;
+  transition: transform 0.2s;
+}
+.heart-button.in-favorites .heart-icon {
+  color: #4caf50; /* Cœur vert */
+}
+
+.heart-button.in-favorites:hover .heart-icon {
+  display: none; /* Masque le cœur au survol */
+}
+
+.heart-button.in-favorites:hover .trash-icon {
+  display: inline; /* Affiche la poubelle au survol */
+}
+.filters {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 20px 0;
+  align-items: center;
+}
+
+.search-bar,
+.genre-select {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.genre-select {
+  width: 200px;
+}
+.year-select {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.genre-select,
+.year-select {
+  width: 150px;
 }

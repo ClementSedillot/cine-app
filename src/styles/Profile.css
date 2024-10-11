@@ -1,0 +1,97 @@
+.profile-page {
+    padding: 20px;
+    background: #f5f5f5;
+    min-height: 100vh;
+  }
+  
+  .profile-title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .profile-form {
+    margin: 0 auto;
+    max-width: 400px;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .profile-form h3 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    cursor: pointer;
+  }
+  
+  .btn-success {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+  }
+  
+  .favorites-list {
+    margin-top: 30px;
+  }
+  
+  .favorites-list h3 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .favorites-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .favorite-card {
+    width: 200px;
+    text-align: center;
+    background: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .favorite-poster {
+    width: 100%;
+    border-radius: 8px;
+  }
+  
+  .favorite-title {
+    margin: 10px 0;
+  }
+  
+  .remove-favorite {
+    background-color: #ff4c4c;
+    color: white;
+    border: none;
+  }
+  
