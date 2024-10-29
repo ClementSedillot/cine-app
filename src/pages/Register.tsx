@@ -11,34 +11,36 @@ const Register: React.FC = () => {
   const navigate = useNavigate();
 
  
-  useEffect(() => {
-    const users = Object.keys(localStorage)
-      .filter((key) => key.startsWith('user_'))
-      .map((key) => JSON.parse(localStorage.getItem(key) || '{}'));
+  // Initializes the next available user ID by checking local storage for existing users
+useEffect(() => {
+  const users = Object.keys(localStorage)
+    .filter((key) => key.startsWith('user_'))
+    .map((key) => JSON.parse(localStorage.getItem(key) || '{}'));
 
-    const lastId = users.length > 0 ? Math.max(...users.map((user) => parseInt(user.id))) : 0;
+  const lastId = users.length > 0 ? Math.max(...users.map((user) => parseInt(user.id))) : 0;
+  setId(lastId + 1);
+}, []);
 
-    setId(lastId + 1);
-  }, []);
+// Handles form submission to register a new user
+const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const newUser = {
-      id: id.toString(),
-      username,
-      email,
-      password,
-    };
-
-    localStorage.setItem('user_' + newUser.id, JSON.stringify(newUser));
-
-    setUsername('');
-    setEmail('');
-    setPassword('');
-
-    navigate('/login');
+  // Creates a new user object and saves it to local storage
+  const newUser = {
+    id: id.toString(),
+    username,
+    email,
+    password,
   };
+
+  localStorage.setItem('user_' + newUser.id, JSON.stringify(newUser));
+
+  // Resets form fields after successful registration and redirects to login
+  setUsername('');
+  setEmail('');
+  setPassword('');
+  navigate('/login');
+};
 
   return (
     <div className="register-container">

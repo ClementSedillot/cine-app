@@ -24,41 +24,44 @@ const Profile: React.FC = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const userLoggedIn = localStorage.getItem('userLoggedIn');
-    if (userLoggedIn) {
-      const loggedInUser = JSON.parse(userLoggedIn);
-      setUser(loggedInUser);
-      setUsername(loggedInUser.username);
-      setEmail(loggedInUser.email);
-      setPassword(loggedInUser.password);
-    } else {
-      navigate('/login');
-    }
-  }, [navigate]);
+ // Checks if a user is logged in; if not, redirects to the login page
+useEffect(() => {
+  const userLoggedIn = localStorage.getItem('userLoggedIn');
+  if (userLoggedIn) {
+    const loggedInUser = JSON.parse(userLoggedIn);
+    setUser(loggedInUser);
+    setUsername(loggedInUser.username);
+    setEmail(loggedInUser.email);
+    setPassword(loggedInUser.password);
+  } else {
+    navigate('/login');
+  }
+}, [navigate]);
 
-  const handleSaveProfile = () => {
-    if (user) {
-      const updatedUser: User = {
-        ...user,
-        username,
-        email,
-        password,
-      };
-      setUser(updatedUser);
-      localStorage.setItem('userLoggedIn', JSON.stringify(updatedUser));
-      alert('Profil mis à jour avec succès !');
-    }
-  };
+// Saves the updated profile information to local storage and alerts the user of success
+const handleSaveProfile = () => {
+  if (user) {
+    const updatedUser: User = {
+      ...user,
+      username,
+      email,
+      password,
+    };
+    setUser(updatedUser);
+    localStorage.setItem('userLoggedIn', JSON.stringify(updatedUser));
+    alert('Profile updated successfully!');
+  }
+};
 
-  const handleRemoveFavorite = (movieId: number) => {
-    if (user) {
-      const updatedFavorites = user.favoriteMovies.filter((movie) => movie.id !== movieId);
-      const updatedUser: User = { ...user, favoriteMovies: updatedFavorites };
-      setUser(updatedUser);
-      localStorage.setItem('userLoggedIn', JSON.stringify(updatedUser));
-    }
-  };
+// Removes a movie from the user's list of favorite movies and updates local storage
+const handleRemoveFavorite = (movieId: number) => {
+  if (user) {
+    const updatedFavorites = user.favoriteMovies.filter((movie) => movie.id !== movieId);
+    const updatedUser: User = { ...user, favoriteMovies: updatedFavorites };
+    setUser(updatedUser);
+    localStorage.setItem('userLoggedIn', JSON.stringify(updatedUser));
+  }
+};
 
   return (
     <div className="profile-page">

@@ -49,163 +49,180 @@ const Movies: React.FC = () => {
   const [selectedLanguage, setSelectedLanguage] = useState<string | 'all'>(localStorage.getItem('selectedLanguage') || 'all');
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const userLoggedIn = localStorage.getItem('userLoggedIn');
-    if (userLoggedIn) {
-      const loggedInUser = JSON.parse(userLoggedIn);
-      const updatedUser = { ...loggedInUser, favoriteMovies: loggedInUser.favoriteMovies || [] };
-      setIsLoggedIn(true);
-      setUsername(loggedInUser.username);
-      setUser(updatedUser);
-    } else {
-      navigate('/login');
-    }
-  }, [navigate]);
+  // Checks if a user is logged in; if not, redirects to the login page
+useEffect(() => {
+  const userLoggedIn = localStorage.getItem('userLoggedIn');
+  if (userLoggedIn) {
+    const loggedInUser = JSON.parse(userLoggedIn);
+    const updatedUser = { ...loggedInUser, favoriteMovies: loggedInUser.favoriteMovies || [] };
+    setIsLoggedIn(true);
+    setUsername(loggedInUser.username);
+    setUser(updatedUser);
+  } else {
+    navigate('/login');
+  }
+}, [navigate]);
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      axios
-        .get(MOVIES_URL)
-        .then((response) => {
-          setMovies(response.data.results);
-          setFilteredMovies(response.data.results);
-          applyStoredFilters(response.data.results);
-        })
-        .catch((error) => {
-          console.error("Erreur lors de la récupération des films :", error);
-        });
-    }
-  }, [isLoggedIn]);
-
-  useEffect(() => {
+// Fetches popular movies from the API and applies stored filters if a user is logged in
+useEffect(() => {
+  if (isLoggedIn) {
     axios
-      .get(GENRES_URL)
+      .get(MOVIES_URL)
       .then((response) => {
-        setGenres(response.data.genres);
+        setMovies(response.data.results);
+        setFilteredMovies(response.data.results);
+        applyStoredFilters(response.data.results);
       })
       .catch((error) => {
-        console.error("Erreur lors de la récupération des genres :", error);
+        console.error("Error fetching movies:", error);
       });
-  }, []);
+  }
+}, [isLoggedIn]);
 
-  const applyStoredFilters = (movies: Movie[]) => {
-    filterMovies(searchTerm, selectedGenre, selectedYear, selectedLanguage, movies);
-  };
+// Fetches movie genres from the API
+useEffect(() => {
+  axios
+    .get(GENRES_URL)
+    .then((response) => {
+      setGenres(response.data.genres);
+    })
+    .catch((error) => {
+      console.error("Error fetching genres:", error);
+    });
+}, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem('userLoggedIn');
-    navigate('/login');
-  };
+// Applies stored filters for search, genre, year, and language on the movie list
+const applyStoredFilters = (movies: Movie[]) => {
+  filterMovies(searchTerm, selectedGenre, selectedYear, selectedLanguage, movies);
+};
 
-  const handleShowModal = (movie: Movie) => {
-    setSelectedMovie(movie);
-    setShowModal(true);
-    fetchTrailer(movie.id);
-  };
+// Logs the user out and redirects to the login page
+const handleLogout = () => {
+  localStorage.removeItem('userLoggedIn');
+  navigate('/login');
+};
 
-  const handleCloseModal = () => {
-    setShowModal(false);
-    setSelectedMovie(null);
-    setTrailerKey(null);
-  };
+// Opens the modal for a specific movie and fetches its trailer
+const handleShowModal = (movie: Movie) => {
+  setSelectedMovie(movie);
+  setShowModal(true);
+  fetchTrailer(movie.id);
+};
 
-  const fetchTrailer = async (movieId: number) => {
-    const TRAILER_URL = `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}&language=en-US`;
-    try {
-      const response = await axios.get(TRAILER_URL);
-      const videos = response.data.results;
-      const trailer = videos.find((video: any) => video.type === 'Trailer' && video.site === 'YouTube');
-      if (trailer) {
-        setTrailerKey(trailer.key);
-      }
-    } catch (error) {
-      console.error("Erreur lors de la récupération du trailer :", error);
+// Closes the movie modal and clears trailer data
+const handleCloseModal = () => {
+  setShowModal(false);
+  setSelectedMovie(null);
+  setTrailerKey(null);
+};
+
+// Fetches the trailer for a movie based on its ID
+const fetchTrailer = async (movieId: number) => {
+  const TRAILER_URL = `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}&language=en-US`;
+  try {
+    const response = await axios.get(TRAILER_URL);
+    const videos = response.data.results;
+    const trailer = videos.find((video: any) => video.type === 'Trailer' && video.site === 'YouTube');
+    if (trailer) {
+      setTrailerKey(trailer.key);
     }
-  };
+  } catch (error) {
+    console.error("Error fetching trailer:", error);
+  }
+};
 
-  const addToFavorites = (movie: Movie) => {
-    if (user) {
-      const updatedUser = {
-        ...user,
-        favoriteMovies: user.favoriteMovies ? [...user.favoriteMovies, movie] : [movie]
-      };
-      setUser(updatedUser);
-      localStorage.setItem('userLoggedIn', JSON.stringify(updatedUser));
-    }
-  };
+// Adds a movie to the user's favorites
+const addToFavorites = (movie: Movie) => {
+  if (user) {
+    const updatedUser = {
+      ...user,
+      favoriteMovies: user.favoriteMovies ? [...user.favoriteMovies, movie] : [movie]
+    };
+    setUser(updatedUser);
+    localStorage.setItem('userLoggedIn', JSON.stringify(updatedUser));
+  }
+};
 
-  const removeFromFavorites = (movie: Movie) => {
-    if (user) {
-      const updatedUser = {
-        ...user,
-        favoriteMovies: user.favoriteMovies.filter(favMovie => favMovie.id !== movie.id)
-      };
-      setUser(updatedUser);
-      localStorage.setItem('userLoggedIn', JSON.stringify(updatedUser));
-    }
-  };
+// Removes a movie from the user's favorites
+const removeFromFavorites = (movie: Movie) => {
+  if (user) {
+    const updatedUser = {
+      ...user,
+      favoriteMovies: user.favoriteMovies.filter(favMovie => favMovie.id !== movie.id)
+    };
+    setUser(updatedUser);
+    localStorage.setItem('userLoggedIn', JSON.stringify(updatedUser));
+  }
+};
 
-  // Définition de la fonction isFavorite
-  const isFavorite = (movie: Movie): boolean => {
-    return user?.favoriteMovies.some(favMovie => favMovie.id === movie.id) || false;
-  };
+// Checks if a movie is in the user's favorites
+const isFavorite = (movie: Movie): boolean => {
+  return user?.favoriteMovies.some(favMovie => favMovie.id === movie.id) || false;
+};
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setSearchTerm(value);
-    localStorage.setItem('searchTerm', value);
-    filterMovies(value, selectedGenre, selectedYear, selectedLanguage);
-  };
+// Updates the search term and filters movies accordingly
+const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const value = e.target.value;
+  setSearchTerm(value);
+  localStorage.setItem('searchTerm', value);
+  filterMovies(value, selectedGenre, selectedYear, selectedLanguage);
+};
 
-  const handleGenreChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const genreId = e.target.value === 'all' ? 'all' : parseInt(e.target.value);
-    setSelectedGenre(genreId);
-    localStorage.setItem('selectedGenre', genreId.toString());
-    filterMovies(searchTerm, genreId, selectedYear, selectedLanguage);
-  };
+// Updates the selected genre and filters movies accordingly
+const handleGenreChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const genreId = e.target.value === 'all' ? 'all' : parseInt(e.target.value);
+  setSelectedGenre(genreId);
+  localStorage.setItem('selectedGenre', genreId.toString());
+  filterMovies(searchTerm, genreId, selectedYear, selectedLanguage);
+};
 
-  const handleYearChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const year = e.target.value;
-    setSelectedYear(year);
-    localStorage.setItem('selectedYear', year);
-    filterMovies(searchTerm, selectedGenre, year, selectedLanguage);
-  };
+// Updates the selected year and filters movies accordingly
+const handleYearChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const year = e.target.value;
+  setSelectedYear(year);
+  localStorage.setItem('selectedYear', year);
+  filterMovies(searchTerm, selectedGenre, year, selectedLanguage);
+};
 
-  const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const language = e.target.value;
-    setSelectedLanguage(language);
-    localStorage.setItem('selectedLanguage', language);
-    filterMovies(searchTerm, selectedGenre, selectedYear, language);
-  };
+// Updates the selected language and filters movies accordingly
+const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const language = e.target.value;
+  setSelectedLanguage(language);
+  localStorage.setItem('selectedLanguage', language);
+  filterMovies(searchTerm, selectedGenre, selectedYear, language);
+};
 
-  const filterMovies = (search: string, genreId: number | 'all', year: string | 'all', language: string, sourceMovies = movies) => {
-    let filtered = sourceMovies;
-    if (search) {
-      filtered = filtered.filter((movie) => movie.title.toLowerCase().includes(search.toLowerCase()));
-    }
-    if (genreId !== 'all') {
-      filtered = filtered.filter((movie) => movie.genre_ids.includes(genreId));
-    }
-    if (year !== 'all') {
-      filtered = filtered.filter((movie) => movie.release_date.startsWith(year));
-    }
-    if (language !== 'all') {
-      filtered = filtered.filter((movie) => movie.original_language === language);
-    }
-    setFilteredMovies(filtered);
-  };
+// Filters movies by search term, genre, year, and language
+const filterMovies = (search: string, genreId: number | 'all', year: string | 'all', language: string, sourceMovies = movies) => {
+  let filtered = sourceMovies;
+  if (search) {
+    filtered = filtered.filter((movie) => movie.title.toLowerCase().includes(search.toLowerCase()));
+  }
+  if (genreId !== 'all') {
+    filtered = filtered.filter((movie) => movie.genre_ids.includes(genreId));
+  }
+  if (year !== 'all') {
+    filtered = filtered.filter((movie) => movie.release_date.startsWith(year));
+  }
+  if (language !== 'all') {
+    filtered = filtered.filter((movie) => movie.original_language === language);
+  }
+  setFilteredMovies(filtered);
+};
 
-  const resetFilters = () => {
-    setSearchTerm('');
-    setSelectedGenre('all');
-    setSelectedYear('all');
-    setSelectedLanguage('all');
-    setFilteredMovies(movies);
-    localStorage.removeItem('searchTerm');
-    localStorage.removeItem('selectedGenre');
-    localStorage.removeItem('selectedYear');
-    localStorage.removeItem('selectedLanguage');
-  };
+// Resets all filters and clears local storage
+const resetFilters = () => {
+  setSearchTerm('');
+  setSelectedGenre('all');
+  setSelectedYear('all');
+  setSelectedLanguage('all');
+  setFilteredMovies(movies);
+  localStorage.removeItem('searchTerm');
+  localStorage.removeItem('selectedGenre');
+  localStorage.removeItem('selectedYear');
+  localStorage.removeItem('selectedLanguage');
+};
+
 
   return (
     <div className="movies-page">
